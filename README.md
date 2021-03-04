@@ -11,3 +11,5 @@ However, because of this exponential amplification step, the data generated cont
 To do this, a so called Unique Molecular Identifier (UMI) can be coupled to each RNA molecule when it's captured. The UMI becomes part of the cDNA molecule and is therefore also amplified. This making it possible to trace PCR copies to one single RNA molecule, remove any redundant copies and quantify the original number of RNA molecules. 
 
 In this project, I will present a small simulation framework to generate cDNA libraries in silico and benchmark a set of  "duplicate removal algorithms" to see how well they perform in removing PCR duplicates.
+
+[![Build Status](https://travis-ci.org/ludvigla/simUMI.svg?branch=main)](https://travis-ci.org/ludvigla/simUMI)
