@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimUMI &#8212; simUMI 0.0.2 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="simUMI package" href="../index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="simUMI package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">simUMI 0.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimUMI</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="simumi">
+<h1>SimUMI<a class="headerlink" href="#simumi" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="py class">
+<dt id="simulator.SimUMI">
+<em class="property">class </em><code class="sig-prename descclassname">simulator.</code><code class="sig-name descname">SimUMI</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterations</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">umi_length</span><span class="o">=</span><span class="default_value">7</span></em>, <em class="sig-param"><span class="n">pcr_cycles</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">dna_pol_error_rate</span><span class="o">=</span><span class="default_value">1e-05</span></em>, <em class="sig-param"><span class="n">seq_error_rate</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">eff_min</span><span class="o">=</span><span class="default_value">0.65</span></em>, <em class="sig-param"><span class="n">eff_max</span><span class="o">=</span><span class="default_value">0.9</span></em>, <em class="sig-param"><span class="n">number_of_umis</span><span class="o">=</span><span class="default_value">20</span></em><span class="sig-paren">)</span><a class="headerlink" href="#simulator.SimUMI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to represent an object to be used for simulations for
+PCR amplification of UMIs.</p>
+<p>This class can be used to set up a simulation framwork to test the effect 
+of specific parameters in a PCR reaction. Multiple iterations of the PCR
+reaction are run to yield estimates of the original number of UMIs using a 
+selection of duplicate removal methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>iterations</strong><span class="classifier">int</span></dt><dd><p>number of iterations to be run in the simulation</p>
+</dd>
+<dt><strong>umi_length</strong><span class="classifier">int</span></dt><dd><p>length of UMI</p>
+</dd>
+<dt><strong>pcr_cycles</strong><span class="classifier">int</span></dt><dd><p>number of pcr cycles to run</p>
+</dd>
+<dt><strong>dna_pol_error_rate</strong><span class="classifier">float</span></dt><dd><p>error rate for the DNA polymerase used in the PCR reaction</p>
+</dd>
+<dt><strong>seq_pol_error_rate</strong><span class="classifier">float</span></dt><dd><p>error rate for sequencing</p>
+</dd>
+<dt><strong>eff_min, eff_max</strong><span class="classifier">float</span></dt><dd><p>minimum and maximum efficiency of amplification</p>
+</dd>
+<dt><strong>number_of_umis</strong><span class="classifier">int</span></dt><dd><p>number of UMIs to start with in the pool</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>updateVariable(variable=None)</strong></p></td>
+<td><p>Update variable to vary in simulation, all other variables are fixed</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>iterator(variable, iter_list, dedup_methods, verbose=False)</strong></p></td>
+<td><p>Create an iterator for umi simulation</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py function">
+<dt id="simulator.mp_iter">
+<code class="sig-prename descclassname">simulator.</code><code class="sig-name descname">mp_iter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">number_of_UMIs</span></em>, <em class="sig-param"><span class="n">length_of_UMIs</span></em>, <em class="sig-param"><span class="n">PCR_cycles</span></em>, <em class="sig-param"><span class="n">error_rate</span></em>, <em class="sig-param"><span class="n">seq_error_rate</span></em>, <em class="sig-param"><span class="n">efficiency_min</span></em>, <em class="sig-param"><span class="n">efficiency_max</span></em>, <em class="sig-param"><span class="n">efficiency</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#simulator.mp_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a pool of amplified UMIs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>number_of_UMIs</strong><span class="classifier">int</span></dt><dd><p>number of UMIs to start with</p>
+</dd>
+<dt><strong>length_of_UMIs</strong><span class="classifier">int</span></dt><dd><p>UMI length</p>
+</dd>
+<dt><strong>PCR_cycles</strong><span class="classifier">int</span></dt><dd><p>number of PCR cycles</p>
+</dd>
+<dt><strong>error_rate</strong><span class="classifier">float</span></dt><dd><p>error rate for DNA polymerase</p>
+</dd>
+<dt><strong>seq_error_rate</strong><span class="classifier">float</span></dt><dd><p>sequencing error rate</p>
+</dd>
+<dt><strong>efficiency_min, efficiency_max</strong><span class="classifier">float</span></dt><dd><p>minimum and maximum amplification efficiency</p>
+</dd>
+<dt><strong>efficiency</strong><span class="classifier">float</span></dt><dd><p>downsample proportion</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Pool</dt><dd><p>an object of class ‘Pool’ with an amplified UMI pool</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="simulator.CountsPerMethod">
+<code class="sig-prename descclassname">simulator.</code><code class="sig-name descname">CountsPerMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterations</span></em>, <em class="sig-param"><span class="n">number_of_UMIs</span></em>, <em class="sig-param"><span class="n">length_of_UMIs</span></em>, <em class="sig-param"><span class="n">PCR_cycles</span></em>, <em class="sig-param"><span class="n">error_rate</span></em>, <em class="sig-param"><span class="n">seq_error_rate</span></em>, <em class="sig-param"><span class="n">efficiency_min</span></em>, <em class="sig-param"><span class="n">efficiency_max</span></em>, <em class="sig-param"><span class="n">dedup_methods</span></em>, <em class="sig-param"><span class="n">efficiency</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#simulator.CountsPerMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate UMI counts</p>
+<p>Runs a simulation process and using multiprocessing and to 
+generate a set of amplified UMI pools. Then estimates UMI counts 
+from and amplified UMI pool using a set of predefined duplicated 
+removal methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>iterations</strong><span class="classifier">int</span></dt><dd><p>number of iterations to run</p>
+</dd>
+<dt><strong>number_of_UMIs</strong><span class="classifier">int</span></dt><dd><p>number of UMIs to start with</p>
+</dd>
+<dt><strong>length_of_UMIs</strong><span class="classifier">int</span></dt><dd><p>UMI length</p>
+</dd>
+<dt><strong>PCR_cycles</strong><span class="classifier">int</span></dt><dd><p>number of PCR cycles</p>
+</dd>
+<dt><strong>error_rate</strong><span class="classifier">float</span></dt><dd><p>error rate for DNA polymerase</p>
+</dd>
+<dt><strong>seq_error_rate</strong><span class="classifier">float</span></dt><dd><p>sequencing error rate</p>
+</dd>
+<dt><strong>efficiency_min, efficiency_max</strong><span class="classifier">float</span></dt><dd><p>minimum and maximum amplification efficiency</p>
+</dd>
+<dt><strong>dedup_methods</strong><span class="classifier">list</span></dt><dd><p>list of duplicate removal methods to test</p>
+</dd>
+<dt><strong>efficiency</strong><span class="classifier">float</span></dt><dd><p>downsample proportion</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>a dictionary with siulation results for each dupicate removal method</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="simulator.simulationCycle">
+<code class="sig-prename descclassname">simulator.</code><code class="sig-name descname">simulationCycle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterations</span></em>, <em class="sig-param"><span class="n">number_of_UMIs</span></em>, <em class="sig-param"><span class="n">length_of_UMIs</span></em>, <em class="sig-param"><span class="n">PCR_cycles</span></em>, <em class="sig-param"><span class="n">error_rate</span></em>, <em class="sig-param"><span class="n">seq_error_rate</span></em>, <em class="sig-param"><span class="n">efficiency_min</span></em>, <em class="sig-param"><span class="n">efficiency_max</span></em>, <em class="sig-param"><span class="n">dedup_methods</span></em>, <em class="sig-param"><span class="n">efficiency</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#simulator.simulationCycle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarize results for a simulation cycle</p>
+<p>Runs simulation process and converts results into a DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>iterations</strong><span class="classifier">int</span></dt><dd><p>number of iterations to run</p>
+</dd>
+<dt><strong>number_of_UMIs</strong><span class="classifier">int</span></dt><dd><p>number of UMIs to start with</p>
+</dd>
+<dt><strong>length_of_UMIs</strong><span class="classifier">int</span></dt><dd><p>UMI length</p>
+</dd>
+<dt><strong>PCR_cycles</strong><span class="classifier">int</span></dt><dd><p>number of PCR cycles</p>
+</dd>
+<dt><strong>error_rate</strong><span class="classifier">float</span></dt><dd><p>error rate for DNA polymerase</p>
+</dd>
+<dt><strong>seq_error_rate</strong><span class="classifier">float</span></dt><dd><p>sequencing error rate</p>
+</dd>
+<dt><strong>efficiency_min, efficiency_max</strong><span class="classifier">float</span></dt><dd><p>minimum and maximum amplification efficiency</p>
+</dd>
+<dt><strong>dedup_methods</strong><span class="classifier">list</span></dt><dd><p>list of duplicate removal methods to test</p>
+</dd>
+<dt><strong>efficiency</strong><span class="classifier">float</span></dt><dd><p>downsample proportion</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>DataFrame</dt><dd><p>a pandas DataFrame with four columns
+“number_of_molecules” = Number of UMIs input to the simulation
+“dedup” = duplicate removal method
+“count” = estimated UMI count
+“CV” = coefficient of variation calculated for estimated counts across all iterations</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="ampcycle">
+<h1>ampcycle<a class="headerlink" href="#ampcycle" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-ampcycle.sim"></span><dl class="py class">
+<dt id="ampcycle.sim.Pool">
+<em class="property">class </em><code class="sig-prename descclassname">ampcycle.sim.</code><code class="sig-name descname">Pool</code><a class="headerlink" href="#ampcycle.sim.Pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to represent a pool of Unique Molecular Identifiers (UMIs).</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">UMIsimulator</span><span class="o">.</span><span class="n">ampcycle</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">An uninitiated &#39;Pool&#39; class object</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>umis</strong><span class="classifier">dict</span></dt><dd><p>dictionary of input UMIs as keys and UMI counts as values</p>
+</dd>
+<dt><strong>umis_amplified</strong><span class="classifier">dict</span></dt><dd><p>dictionary of amplified UMIs as keys and UMI counts as values</p>
+</dd>
+<dt><strong>efficiency_min, efficiency_max</strong><span class="classifier">float</span></dt><dd><p>minimum and maximum efficiency of amplification</p>
+</dd>
+<dt><strong>efficiency_dict</strong><span class="classifier">dict</span></dt><dd><p>dictionary of amplification efficiencies associated with each UMI</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>show()</strong></p></td>
+<td><p>Prints information about the Pool class object</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>createUMIsWithBias(n, efficiency_min=0.1, efficiency_max=0.9, error_rate=0.00001, UMI_length=7)</strong></p></td>
+<td><p>Creates a new pool of efficiency biased UMIs</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>SimulateCycleWithErrors(verbose=False)</strong></p></td>
+<td><p>Runs a PCR cycle</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>PCRcyclesWithErrorsAndBias(PCR_cycles)</strong></p></td>
+<td><p>Runs a PCR amplification of UMIs for <cite>PCR_cycles</cite> number of cycles</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>downsampleUMIs(efficiency=1e-2)</strong></p></td>
+<td><p>Downsample an amplified UMI pool</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>addSequencingErrors(seq_error_rate=0.01)</strong></p></td>
+<td><p>Add sequencing errors to an amplififed UMI pool</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="ampcycle.sim.Pool.PCRcyclesWithErrorsAndBias">
+<code class="sig-name descname">PCRcyclesWithErrorsAndBias</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">PCR_cycles</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ampcycle.sim.Pool.PCRcyclesWithErrorsAndBias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a PCR amplification of UMIs for <cite>PCR_cycles</cite> number of cycles on an object of class ‘Pool’.</p>
+<p>The ‘Pool’ object needs to be initiated first by running <cite>createUMIsWithBias</cite>. 
+The input pool of UMIs is then amplified for each cycle based on the 
+amplification efficiency dictionary. For each cycle, UMIs can be mutated 
+by a rate specified as the ‘error_rate’ defined when the ‘Pool’ object was initiated.
+For each new UMI, an efficiency is randomly selected based on the ‘efficiency_min’ and
+‘efficiency_max’ parameters defined when the ‘Pool’ object was initiated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>PCR_cycles</strong><span class="classifier">int</span></dt><dd><p>Number of PCR cycles</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Pool</dt><dd><p>an object of class ‘Pool’ with amplified UMIs</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">UMIsimulator</span><span class="o">.</span><span class="n">ampcycle</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">createUMIsWithBias</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">PCRcyclesWithErrorsAndBias</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">An object of class &#39;Pool&#39; with a total of __ amplified UMIs (__ unique)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ampcycle.sim.Pool.SimulateCycleWithErrors">
+<code class="sig-name descname">SimulateCycleWithErrors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ampcycle.sim.Pool.SimulateCycleWithErrors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulate a PCR cycle</p>
+<p>Runs one round of PCR amplification where each UMI is amplified 
+according to it’s associated amplification efficiency. The amplified
+UMIs then goes through a mutation process to emulate the errors 
+introduced by the DNA polymerase. DNA bases are randomly mutated at a 
+probability defined by the <cite>error_rate</cite> set when the <cite>Pool</cite> object was created.
+Both the input UMIs and amplified + mutated UMIs are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>Pool</dt><dd><p>an object of class ‘Pool’ with amplified UMIs</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">UMIsimulator</span><span class="o">.</span><span class="n">ampcycle</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">createUMIsWithBias</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">SimulateCycleWithErrors</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">An object of class &#39;Pool&#39; with a total of __ amplified UMIs (__ unique)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ampcycle.sim.Pool.addSequencingErrors">
+<code class="sig-name descname">addSequencingErrors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seq_error_rate</span><span class="o">=</span><span class="default_value">0.01</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ampcycle.sim.Pool.addSequencingErrors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add sequencing errors to UMI pool</p>
+<p>Adds sequencing errors to the UMI pool as defined by the 
+<cite>seq_error_rate</cite> parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>seq_error_rate</strong><span class="classifier">float</span></dt><dd><p>sequencing error rate</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Pool</dt><dd><p>an object of class ‘Pool’ with mutated UMIs</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">UMIsimulator</span><span class="o">.</span><span class="n">ampcycle</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">createUMIsWithBias</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">PCRcyclesWithErrorsAndBias</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">addSequencingErrors</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">An object of class &#39;Pool&#39; with a total of __ amplified UMIs (__ unique)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ampcycle.sim.Pool.createUMIsWithBias">
+<code class="sig-name descname">createUMIsWithBias</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">efficiency_min</span><span class="o">=</span><span class="default_value">0.65</span></em>, <em class="sig-param"><span class="n">efficiency_max</span><span class="o">=</span><span class="default_value">0.9</span></em>, <em class="sig-param"><span class="n">error_rate</span><span class="o">=</span><span class="default_value">1e-05</span></em>, <em class="sig-param"><span class="n">UMI_length</span><span class="o">=</span><span class="default_value">7</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ampcycle.sim.Pool.createUMIsWithBias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a pool of UMIs.</p>
+<p>Initiates an object of class ‘Pool’ by creating a random 
+pool of UMIs to be used for simulation. An efficiency dictionary 
+is also created based on the minimum and maximum efficiencies
+provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n</strong><span class="classifier">int</span></dt><dd><p>number of UMIs in the pool</p>
+</dd>
+<dt><strong>efficiency_min, efficiency_max</strong><span class="classifier">float</span></dt><dd><p>minimum and maximum amplification efficiency</p>
+</dd>
+<dt><strong>error_rate</strong><span class="classifier">float</span></dt><dd><p>mutation error rate</p>
+</dd>
+<dt><strong>UMI_length</strong><span class="classifier">int</span></dt><dd><p>UMI length</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Pool</dt><dd><p>an object of class ‘Pool’ with a randomized UMI pool</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">UMIsimulator</span><span class="o">.</span><span class="n">ampcycle</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">createUMIsWithBias</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">An object of class &#39;Pool&#39; with a total of 10 amplified UMIs (10 unique)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ampcycle.sim.Pool.downsampleUMIs">
+<code class="sig-name descname">downsampleUMIs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">efficiency</span><span class="o">=</span><span class="default_value">0.01</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ampcycle.sim.Pool.downsampleUMIs" title="Permalink to this definition">¶</a></dt>
+<dd><p>subsample from UMI pool using an efficiency factor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>efficiency</strong><span class="classifier">float</span></dt><dd><p>proportion of UMIs to be kept from the pool</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Pool</dt><dd><p>an object of class ‘Pool’ with a downsampled UMI pool</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">UMIsimulator</span><span class="o">.</span><span class="n">ampcycle</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">createUMIsWithBias</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">PCRcyclesWithErrorsAndBias</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">downsampleUMIs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">An object of class &#39;Pool&#39; with a total of __ amplified UMIs (__ unique)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dedup">
+<h1>dedup<a class="headerlink" href="#dedup" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-dedup.dedup_methods"></span><dl class="py function">
+<dt id="dedup.dedup_methods.dedup_adj">
+<code class="sig-prename descclassname">dedup.dedup_methods.</code><code class="sig-name descname">dedup_adj</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">molecular_barcodes</span></em>, <em class="sig-param"><span class="n">mismatches</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dedup.dedup_methods.dedup_adj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjecncy duplicate removal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>molecular_barcodes</strong><span class="classifier">dict</span></dt><dd><p>dictionary with UMIs as keys and UMI counts as values</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>Number of UMI groups</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="dedup.dedup_methods.dedup_dir_adj">
+<code class="sig-prename descclassname">dedup.dedup_methods.</code><code class="sig-name descname">dedup_dir_adj</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">molecular_barcodes</span></em>, <em class="sig-param"><span class="n">mismatches</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dedup.dedup_methods.dedup_dir_adj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directed adjecncy duplicate removal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>molecular_barcodes</strong><span class="classifier">dict</span></dt><dd><p>dictionary with UMIs as keys and UMI counts as values</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>Number of UMI groups</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="dedup.dedup_methods.dedup_graph">
+<code class="sig-prename descclassname">dedup.dedup_methods.</code><code class="sig-name descname">dedup_graph</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">molecular_barcodes</span></em>, <em class="sig-param"><span class="n">mismatches</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dedup.dedup_methods.dedup_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Graph duplicate removal</p>
+<p>Count connected components of graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>molecular_barcodes</strong><span class="classifier">dict</span></dt><dd><p>dictionary with UMIs as keys and UMI counts as values</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>Number of UMI groups</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="dedup.dedup_methods.dedup_hierarchical">
+<code class="sig-prename descclassname">dedup.dedup_methods.</code><code class="sig-name descname">dedup_hierarchical</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">molecular_barcodes</span></em>, <em class="sig-param"><span class="n">mismatches</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'single'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dedup.dedup_methods.dedup_hierarchical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hierarchical duplicate removal</p>
+<p>Runs a hierarchical clustering on the edit distance matrix
+computed for all paris of UMIs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>molecular_barcodes</strong><span class="classifier">dict</span></dt><dd><p>dictionary with UMIs as keys and UMI counts as values</p>
+</dd>
+<dt><strong>mismatches</strong><span class="classifier">int</span></dt><dd><p>number of allowed mismatches</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str</span></dt><dd><p>method to be used [“single”, “complete”, “ward”]</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>Number of UMI groups/clusters</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="dedup.dedup_methods.dedup_naive">
+<code class="sig-prename descclassname">dedup.dedup_methods.</code><code class="sig-name descname">dedup_naive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">molecular_barcodes</span></em>, <em class="sig-param"><span class="n">mismatches</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dedup.dedup_methods.dedup_naive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Naive duplicate removal</p>
+<p>Sorts UMIs and creates a new group if the edit distance 
+between a UMI and the preceeding UMI is larger than 
+the number of allowed mismatches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>molecular_barcodes</strong><span class="classifier">dict</span></dt><dd><p>dictionary with UMIs as keys and UMI counts as values</p>
+</dd>
+<dt><strong>mismatched</strong><span class="classifier">int</span></dt><dd><p>number of allowed mismatches</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>Number of UMI groups/clusters</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="dedup.dedup_methods.dedup_percentile">
+<code class="sig-prename descclassname">dedup.dedup_methods.</code><code class="sig-name descname">dedup_percentile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">molecular_barcodes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dedup.dedup_methods.dedup_percentile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percentile duplicate removal</p>
+<p>Count all UMIs with a total count higher than the 
+average count across all UMIs divided by 100.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>molecular_barcodes</strong><span class="classifier">dict</span></dt><dd><p>dictionary with UMIs as keys and UMI counts as values</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>Number of UMI groups</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="dedup.dedup_methods.dedup_unique">
+<code class="sig-prename descclassname">dedup.dedup_methods.</code><code class="sig-name descname">dedup_unique</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">molecular_barcodes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dedup.dedup_methods.dedup_unique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unique duplicate removal</p>
+<p>Count all unique UMIs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>molecular_barcodes</strong><span class="classifier">dict</span></dt><dd><p>dictionary with UMIs as keys and UMI counts as values</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>Number of UMI groups</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="dedup.dedup_methods.edit_dist">
+<code class="sig-prename descclassname">dedup.dedup_methods.</code><code class="sig-name descname">edit_dist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#dedup.dedup_methods.edit_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit distance</p>
+<p>Returns the edit distance/hamming distances between 
+two strings of equal length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>a, b</strong><span class="classifier">str</span></dt><dd><p>UMI string. Lengths of a and b have to be equal</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>hamming distance</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SimUMI</a></li>
+<li><a class="reference internal" href="#ampcycle">ampcycle</a></li>
+<li><a class="reference internal" href="#dedup">dedup</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">simUMI package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="simUMI package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">simUMI 0.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimUMI</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Ludvig Larsson.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

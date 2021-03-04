@@ -6,10 +6,14 @@ import UMIsimulator.ampcycle
 
 class SimUMI(object):
     """
+
     A class to represent an object to be used for simulations for
     PCR amplification of UMIs.
 
-    ...
+    This class can be used to set up a simulation framwork to test the effect 
+    of specific parameters in a PCR reaction. Multiple iterations of the PCR
+    reaction are run to yield estimates of the original number of UMIs using a 
+    selection of duplicate removal methods.
 
     Attributes
     ----------
@@ -34,12 +38,6 @@ class SimUMI(object):
         Update variable to vary in simulation, all other variables are fixed
     iterator(variable, iter_list, dedup_methods, verbose=False)
         Create an iterator for umi simulation
-
-    Examples
-    ----------
-    >>> pool = UMIsimulator.ampcycle.Pool()
-    >>> pool.show()
-    An uninitiated 'Pool' class object
 
     """
 

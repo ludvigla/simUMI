@@ -6,8 +6,6 @@ class Pool(object):
     """
     A class to represent a pool of Unique Molecular Identifiers (UMIs).
 
-    ...
-
     Attributes
     ----------
     umis : dict
